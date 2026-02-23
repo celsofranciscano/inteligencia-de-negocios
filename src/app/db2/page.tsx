@@ -1,4 +1,4 @@
-import { db3 } from "@/lib/db3";
+import { db2 } from "@/lib/db2";
 import {
   Sidebar,
   SidebarContent,
@@ -28,11 +28,11 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
 async function getTableData(table: string) {
-  const totalResult = await db3.query(
+  const totalResult = await db2.query(
     `SELECT COUNT(*)::int AS total FROM ${table}`,
   );
 
-  const rowsResult = await db3.query(
+  const rowsResult = await db2.query(
     `SELECT * FROM ${table} ORDER BY 1 DESC LIMIT 10`,
   );
 
@@ -43,32 +43,53 @@ async function getTableData(table: string) {
 }
 
 const tableIcons: Record<string, React.ComponentType<any>> = {
-  personas: UserCog, // gestión de usuarios/personas
-  personal_medico: UserCog, // médicos y personal de salud
-  pacientes: HeartPulse, // pacientes
-  diagnosticos: Stethoscope, // diagnósticos médicos
-  servicios: Activity, // servicios prestados (consultas, procedimientos)
-  citas: Table, // agenda de citas
-  atenciones: Activity, // atenciones médicas
-  diagnosticos_atencion: Stethoscope, // diagnósticos asociados a atenciones
-  procedimientos: Stethoscope, // procedimientos médicos
-  prescripciones: Table, // recetas / prescripciones médicas
-  ausencias: Table, // ausencias del personal
-  facturacion: Database, // facturación / pagos
+  cat_cargo: UserCog, // cargos del personal
+  cat_especialidad: UserCog, // especialidades médicas
+  cat_estado_cita: Activity, // estados de citas
+  cat_estado_disponibilidad: Activity, // estados de disponibilidad
+  cat_estado_pago: Activity, // estados de pago
+  cat_genero: UserCog, // géneros
+  cat_gravedad: HeartPulse, // gravedad de pacientes
+  cat_metodo_pago: Activity, // métodos de pago
+  cat_tipo_registro: Table, // tipo de registro
+  cat_turno: Activity, // turnos
+  cita_medica: Table, // citas médicas
+  diagnostico: Stethoscope, // diagnósticos
+  diagnostico_procedimiento: Stethoscope, // procedimientos asociados
+  historial_clinico: HeartPulse, // historial clínico
+  medicamento: HeartPulse, // medicamentos
+  paciente: HeartPulse, // pacientes
+  pago: Activity, // pagos
+  persona: UserCog, // personas
+  personal: UserCog, // personal
+  procedimiento_medico: Stethoscope, // procedimientos médicos
+  receta: Table, // recetas
+  receta_detalle: Table, // detalles de receta
 };
+
 const tables = [
-  "personas",
-  "personal_medico",
-  "pacientes",
-  "diagnosticos",
-  "servicios",
-  "citas",
-  "atenciones",
-  "diagnosticos_atencion",
-  "procedimientos",
-  "prescripciones",
-  "ausencias",
-  "facturacion",
+  "cat_cargo",
+  "cat_especialidad",
+  "cat_estado_cita",
+  "cat_estado_disponibilidad",
+  "cat_estado_pago",
+  "cat_genero",
+  "cat_gravedad",
+  "cat_metodo_pago",
+  "cat_tipo_registro",
+  "cat_turno",
+  "cita_medica",
+  "diagnostico",
+  "diagnostico_procedimiento",
+  "historial_clinico",
+  "medicamento",
+  "paciente",
+  "pago",
+  "persona",
+  "personal",
+  "procedimiento_medico",
+  "receta",
+  "receta_detalle",
 ];
 export default async function NeonCoreDashboard() {
   const data = await Promise.all(
@@ -146,9 +167,8 @@ export default async function NeonCoreDashboard() {
             <SidebarTrigger className="text-foreground hover:text-primary" />
             <Separator orientation="vertical" className="h-7" />
             <h1 className="text-xl font-bold tracking-tight text-foreground">
-              Clínica G3 — Core
+              Clínica G2 — Core
             </h1>
-            <a href="/db3/diagnosticos"> INSERTS</a>
           </header>
 
           <main className="flex-1 overflow-auto p-6 lg:p-8">
