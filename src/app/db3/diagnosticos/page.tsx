@@ -18,7 +18,7 @@ async function getReport1(): Promise<Report1Data[]> {
     JOIN servicios s ON c.id_servicio = s.id_servicio
     GROUP BY s.nombre
     ORDER BY count DESC
-   LIMIT 1000
+   LIMIT 1500
   `);
 
   return result.rows.map((r: any) => ({
@@ -34,7 +34,7 @@ async function getReport2(): Promise<Report2Data[]> {
     LEFT JOIN atenciones a ON p.id_paciente = a.id_paciente
     GROUP BY p.id_paciente
     ORDER BY atenciones DESC
-   LIMIT 1000
+   LIMIT 1500
   `);
 
   return result.rows.map((r: any) => ({
@@ -53,7 +53,7 @@ async function getReport3(): Promise<Report3Data[]> {
     JOIN diagnosticos d ON da.id_diagnostico = d.id_diagnostico
     GROUP BY d.nombre
     ORDER BY total_income DESC
-   LIMIT 1000
+   LIMIT 1500
   `);
 
   return result.rows.map((r: any) => ({
